@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SheetMusic Directory</title>
+  </head>
+  <body>
+  	<h1>Welcome to the Sheet Music Directory</h1>
+  	<h2>Select you school from below!</h2>
+  	<ul>
+  		<% @all_schools.each do |school| %>
+  			<li><a href="/school/<%= school[:id] %>" %><%= school[:name] %></a></li>
+  		<% end %>
+  	</ul>
+  </body>
+</html>
