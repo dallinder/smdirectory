@@ -29,4 +29,10 @@ class Database
   	end
   end
 
+  def add_school(school_name)
+    sql = "INSERT INTO school(name) VALUES ($1)"
+
+    query(sql, school_name)
+  end
+
 end
