@@ -9,6 +9,16 @@
 
   </head>
   <body>
+    <% if session[:error] %>
+  <div class="alert alert-warning" role="alert">
+    <%= session.delete(:error) %>
+  </div>
+<% elsif session[:success] %>
+  <div class="alert alert-success" role="alert">
+    <%= session.delete(:success) %>
+  </div>
+<% end %>
+    
   	<%== yield %>
 
   	<!-- Bootrap Jquery, popper.js, and minified JS -->

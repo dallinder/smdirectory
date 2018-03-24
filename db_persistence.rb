@@ -54,4 +54,11 @@ class Database
       {id: tuple["id"], title: tuple["title"], composer: tuple["composer"]}
     end
   end
+
+  def add_piece(title, composer, school_id)
+    sql = "INSERT INTO pieces(title, composer, school_id) VALUES ($1, $2, $3)"
+
+    query(sql, title, composer, school_id)
+  end
+
 end

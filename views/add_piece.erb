@@ -1,0 +1,19 @@
+<fieldset>
+
+	<form action="/school/<%= @id %>/add_piece" method="post">
+		<dl>
+			<dt>
+				<label for="school_name">Add a new piece to <%= @school[:name] %>'s library:</label>
+			</dt>
+			<dl>
+				<input name="title" placeholder="Title" type="text" value="">
+			</dl>
+			<dl>
+				<input name="composer" placeholder="Composer" type="text" value="">
+			</dl>
+			<input type="submit" value="Add Piece">
+			<a href="/">Cancel</a>
+		</dl>
+	</form>
+
+</fieldset>

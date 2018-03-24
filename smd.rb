@@ -36,18 +36,6 @@ get '/add_school' do
 	erb :add_school, layout: :layout
 end
 
-# def error_for_new_music(name, composer, difficulty, school_id, arranger)
-#   if !(1..50).cover? name.size
-#     "You must include a name for the piece between 1 and 50 characters."
-#   elsif !(1..50).cover? composer.size
-#     "The composers name must be between 1 and 50 characters."
-#   elsif !difficulty.between?(1,5)
-#     "The difficulty level must be 1, 2, 3, 4, or 5."
-#   elsif @storage.display_library(school_id).any? { |music| music[:name].downcase == name.downcase && music[:arranger].dowcase == arranger.downcase }
-#     "This piece is already in the database."
-#   end
-# end
-
 
 def error_for_school_name(school_name)
   if !(1..50).cover? school_name.size
@@ -71,14 +59,52 @@ post '/add_school' do
 	end
 end
 
+
 # Display one school and it's library
 
 get '/school/:id' do
-	id = params[:id]
+	@id = params[:id]
 
-	@school = @storage.get_one_school(id)
-	@pieces = @storage.get_pieces(id)
+	@school = @storage.get_one_school(@id)
+	@pieces = @storage.get_pieces(@id)
 
 	erb :school, layout: :layout
+end
+
+
+def error_for_new_music(name, composer, school_id)
+  if !(1..50).cover? name.size
+    "You must include a name for the piece between 1 and 50 characters."
+  elsif !(1..50).cover? composer.size
+    "The composers name must be between 1 and 50 characters."
+  elsif @storage.get_pieces(school_id).any? { |music| music[:title].downcase == name.downcase }
+    "This piece is already in the database."
+  end
+end
+
+
+# Display add a new piece form
+
+get '/school/:id/add_piece' do
+	@id = params[:id]
+	@school = @storage.get_one_school(@id)
+
+	erb :add_piece, layout: :layout
+end
+
+post '/school/:id/add_piece' do
+	@id = params[:id]
+	title = params[:title].strip
+	composer = params[:composer].strip
+	@school = @storage.get_one_school(@id)
+	if error = error_for_new_music(title, composer, @id.to_i)
+		session[:error] = error
+		erb :add_piece, layout: :layout
+	else
+		@storage.add_piece(title, composer, @id)
+		session[:success] = "Added #{title} to the database!"
+		redirect "/school/#{@id}"
+	end
+
 end
 
