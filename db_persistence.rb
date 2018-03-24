@@ -35,4 +35,23 @@ class Database
     query(sql, school_name)
   end
 
+  def get_one_school(id)
+    sql = "SELECT * FROM school WHERE id = $1"
+
+    result = query(sql, id)
+
+    result.map do |tuple|
+      {id: tuple["id"], name: tuple["name"]}
+    end.first
+  end
+
+  def get_pieces(school_id)
+    sql = "SELECT * FROM pieces WHERE school_id = $1 ORDER BY title"
+
+    result = query(sql, school_id)
+
+    result.map do |tuple|
+      {id: tuple["id"], title: tuple["title"], composer: tuple["composer"]}
+    end
+  end
 end

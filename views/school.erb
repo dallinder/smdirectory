@@ -1,0 +1,17 @@
+<h1><%= @school[:name] %>'s Library</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Title</th>
+			<th scope="col">Composer</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @pieces.each do |piece| %>
+		<tr>
+			<td><%= piece[:title] %></td>
+			<td><%= piece[:composer] %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

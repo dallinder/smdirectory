@@ -22,14 +22,18 @@ after do
   @storage.disconnect
 end
 
+# displays main page
+
 get '/' do
 	@all_schools = @storage.get_all_schools
 
-	erb :index
+	erb :index, layout: :layout
 end
 
+# page to add a school. displays a form.
+
 get '/add_school' do
-	erb :add_school
+	erb :add_school, layout: :layout
 end
 
 # def error_for_new_music(name, composer, difficulty, school_id, arranger)
@@ -44,6 +48,7 @@ end
 #   end
 # end
 
+
 def error_for_school_name(school_name)
   if !(1..50).cover? school_name.size
     "Your school name must contain between 1 and 50 characters."
@@ -52,14 +57,28 @@ def error_for_school_name(school_name)
   end
 end
 
+# add a school to the library
+
 post '/add_school' do
 	school = params[:school_name].strip
 	if error = error_for_school_name(school)
 		session[:error] = error
-		erb :add_school
+		erb :add_school, layout: :layout
 	else
 		@storage.add_school(school)
 		session[:success] = "#{school} has been added to the database."
 		redirect "/"
 	end
 end
+
+# Display one school and it's library
+
+get '/school/:id' do
+	id = params[:id]
+
+	@school = @storage.get_one_school(id)
+	@pieces = @storage.get_pieces(id)
+
+	erb :school, layout: :layout
+end
+
