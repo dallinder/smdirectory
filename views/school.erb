@@ -1,19 +1,24 @@
-<h1><%= @school[:name] %>'s Library</h1>
-<p>Click <a href="/school/<%= @id %>/add_piece">here</a> to add a piece to the library</p>
+<div class="container">
+	<h1><%= @school[:name] %>'s Library</h1>
+	<p>Click <a href="/school/<%= @id %>/add_piece">here</a> to add a piece to the library</p>
+	<p><a href="/">Go Back</a></p>
+</div>
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th scope="col">Title</th>
-			<th scope="col">Composer</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @pieces.each do |piece| %>
-		<tr>
-			<td><%= piece[:title] %></td>
-			<td><%= piece[:composer] %></td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+<div class="container">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Title</th>
+				<th scope="col">Composer</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @pieces.each do |piece| %>
+			<tr>
+				<td><%= piece[:title] %></td>
+				<td><%= piece[:composer] %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/contrib'
+require 'bcrypt'
 
 require_relative 'db_persistence'
 
@@ -92,6 +93,8 @@ get '/school/:id/add_piece' do
 	erb :add_piece, layout: :layout
 end
 
+# Add a new piece to the library
+
 post '/school/:id/add_piece' do
 	@id = params[:id]
 	title = params[:title].strip
@@ -105,6 +108,5 @@ post '/school/:id/add_piece' do
 		session[:success] = "Added #{title} to the database!"
 		redirect "/school/#{@id}"
 	end
-
 end
 

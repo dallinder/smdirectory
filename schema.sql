@@ -9,3 +9,4 @@ CREATE TABLE pieces (
 	composer text NOT NULL,
 	school_id integer NOT NULL REFERENCES school (id)
 );
+

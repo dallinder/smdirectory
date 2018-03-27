@@ -60,5 +60,4 @@ class Database
 
     query(sql, title, composer, school_id)
   end
-
 end
